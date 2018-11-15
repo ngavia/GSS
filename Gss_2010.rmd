@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Natalie Gavia"
 date: "Fall 2018"
 output:
   html_document:
@@ -29,7 +29,7 @@ Use the data from the 2010 general social survey to explore whether belief in co
 
 ```{r}
 alldata <- read.csv(file="gss2010.csv", header=TRUE)
-#names(alldata)
+names(alldata)
 ```
 
 
@@ -43,16 +43,65 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
 
+From the graph, it seems to show that...
+
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent") 
+```
+
+```{r}
+barchartGC(~condrift+cappun, data=alldata, type = "percent") 
+```
+
+
+From the graph, it seems the results are independent from each other since each category has a difference in their favor and opposing views. For example, the big gap in favor among Black and White.
 
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+tab = xtabs(~race+condrift, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+
+
+```{r}
+tab = xtabs(~race+cappun, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+
+```{r}
+tab = xtabs(~condrift+cappun, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+From the numerical results, it displays that Black people are less in favor of capital punishment compared to white people.
+
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+
+```{r}
+chisqtestGC(~race+condrift, data=alldata, graph=TRUE)
+```
+
+
+```{r}
+chisqtestGC(~race+cappun, data=alldata, graph=TRUE)
+```
+
+```{r}
+chisqtestGC(~condrift+cappun, data=alldata, graph=TRUE)
+```
+
+From our results we are going to reject the null hypothesis because the P-Value is really low.  
 
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+Overall, the data is not independent of each other since the total result of each race, capital punishment and continental drift were dependent of each other based of race. 
